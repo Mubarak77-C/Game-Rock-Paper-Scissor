@@ -43,10 +43,15 @@ function playground(userChoice, computerChoice) {
     if(computerChoice===userChoice) {
         console.log(`Both User and computer are draw`)
     }
-    else if(computerChoice>userChoice){
-        console.log(`ComputerUSer  WIN`)
+    //here i will check all possiblity of winning of user choice
+    else if(
+        (userChoice==="rock" && computerChoice === "scissor") ||
+        (userChoice==="scissor" && computerChoice === "paper") ||
+        (userChoice==="paper" && computerChoice === "rock") 
+    ){
+        console.log(`User WIN!`)
     }else{
-        console.log(`ComputerUSer LOOSE`)
+        console.log(`Computer WIN! : User better luck next time!`)
     }
 
 
