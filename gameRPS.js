@@ -13,7 +13,14 @@ const choices = ["rock","scissor","paper"];
 // }  
 
 function getComputerChoice(){
-console.log("function call");   //working 
+
+//console.log("function call");   
+
+let randomIndex = Math.floor(Math.random() * choices.length);
+console.log("Random index choose is ", randomIndex);
+
+let computerChoice = choices[randomIndex];
+console.log("Computer choose value ", computerChoice);
 }
 
 getComputerChoice();  //calling
