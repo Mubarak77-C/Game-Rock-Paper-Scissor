@@ -67,23 +67,53 @@ function playground(userChoice, computerChoice) {
 // let userInput = prompt("Enter Rock,Paper,Scissor").toLowerCase();
 //herer i got PR
 //now i got pull request that input prompt any data type added it taking so it should take data type as what array have not anything like number etc apart from array values string
+
 //initialise input empty var to start loop to check
-let userInput = "";
+//###
+//let userInput = "";
 // The Trap Condition: Keep looping AS LONG AS the choices array does NOT include what the user typed
-while (!choices.includes(userInput)) {  //if not arr value include by user input
-    let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
-    // Safety Net: If the user clicks 'Cancel', rawPrompt is null. We turn it into an empty string to prevent crashes.
-    if (rawPrompt === null) {
-        userInput = "";
-    } else {
-        userInput = rawPrompt.toLowerCase().trim();
+//if not arr value include by user input
+
+//  while (!choices.includes(userInput)) { 
+
+// let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
+
+// Safety Net: If the user clicks 'Cancel', rawPrompt is null. We turn it into an empty string to prevent crashes.
+//     if (rawPrompt === null) {
+//         userInput = "";
+//     } else {
+//         userInput = rawPrompt.toLowerCase().trim();
+//     }
+
+// }
+//### down new function gamecontroller redefine to fix it
+
+
+//again review bug got as stuck infinte loop even cancel button clicked on prompt 
+//so i need to create new function as gameController 
+
+function gameController() {
+    let userInput = "";
+
+    while (!choices.includes(userInput)) {
+        let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
+
+        if (rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit") {
+            console.log("👋 Game ended gracefully by the user. Goodbye!");
+            return; // 🚀 This stops the entire game loop execution instantly!
+        }
+        userInput=rawPrompt.toLowerCase().trim();
     }
 
+    // This code only runs if they escaped the trap loop with a valid choice!
+    let computerInput = getComputerChoice();
+    playground(userInput, computerInput);
 }
 
+// Kickstart the game loop controller safely
+gameController();
 
 
-let computerInput = getComputerChoice(); //from function call dirext and down with argument pass to paramater it like empty box placeholder type where he get this argument pass but it will run two time one before promt and later promt and random choice computer will differ change like first befor it will choose index 0 then later may chose 1 
-//so above wher is calling comment it simple line no 29
-playground(userInput, computerInput);
+
+
 
