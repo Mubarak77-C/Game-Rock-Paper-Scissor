@@ -104,46 +104,48 @@ function playground(userChoice, computerChoice) {
 //again review bug got as stuck infinte loop even cancel button clicked on prompt 
 //so i need to create new function as gameController 
 
-function gameController() {
-    let userInput = "";
 
-    while (!choices.includes(userInput)) {
-        let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
+//### function gameController committed because we need fresh function playGround and tournament for update score and loop 
+// function gameController() {
+//     let userInput = "";
 
-        if (rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit") {
-            console.log("👋 Game ended gracefully by the user. Goodbye!");
-            return; // 🚀 This stops the entire game loop execution instantly!
-        }
-        userInput=rawPrompt.toLowerCase().trim();
-    }
+//     while (!choices.includes(userInput)) {
+//         let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
+
+//         if (rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit") {
+//             console.log("👋 Game ended gracefully by the user. Goodbye!");
+//             return; // 🚀 This stops the entire game loop execution instantly!
+//         }
+//         userInput=rawPrompt.toLowerCase().trim();
+//     }
 
    
 
-    // This code only runs if they escaped the trap loop with a valid choice!
-    let computerInput = getComputerChoice();
-//# take function where return win loss draw and with winner store in it 
-   let winner  =playground(userInput, computerInput);
-   //#conditon if else with comparison winner and return may be human wIN, computer WIN or draw
-    if(winner === "Human WIN") { //whatever return in above function playground with parameter two pass argument with return value as compare with return Human wIn
-        humanScore++;             //score will increase which initialise above 
-        console.log(`Human user WON this round!`)
-    }  
-    else if(winner === "Computer WIN"){
-        computerScore++;
-        console.log(`Computer user  WON this round!`);
-    }else{
-        console.log(`Draw this round! Score remain same`)
-    }
+//     // This code only runs if they escaped the trap loop with a valid choice!
+//     let computerInput = getComputerChoice();
+// //# take function where return win loss draw and with winner store in it 
+//    let winner  =playground(userInput, computerInput);
+//    //#conditon if else with comparison winner and return may be human wIN, computer WIN or draw
+//     if(winner === "Human WIN") { //whatever return in above function playground with parameter two pass argument with return value as compare with return Human wIn
+//         humanScore++;             //score will increase which initialise above 
+//         console.log(`Human user WON this round!`)
+//     }  
+//     else if(winner === "Computer WIN"){
+//         computerScore++;
+//         console.log(`Computer user  WON this round!`);
+//     }else{
+//         console.log(`Draw this round! Score remain same`)
+//     }
 
-    console.log(`-----SCOREBOARD--------`);
-    console.log(`Human score is ${humanScore} | Computer score is ${computerScore} `);
-    console.log(`-------------`);
+//     console.log(`-----SCOREBOARD--------`);
+//     console.log(`Human score is ${humanScore} | Computer score is ${computerScore} `);
+//     console.log(`-------------`);
    
-}
+// }
 
-// Kickstart the game loop controller safely
-gameController();
-gameController();  //again call to start game but this is hardcore so call from for loop 5 time
+// // Kickstart the game loop controller safely
+// gameController();
+// gameController();  //again call to start game but this is hardcore so call from for loop 5 time
 
 
 
