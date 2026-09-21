@@ -7,6 +7,13 @@ document.getElementById("status").innerHTML = msg;
 //intiailise in array 
 const choices = ["rock", "scissor", "paper"];
 
+//initialise global var score for human and computer user
+let humanScore=0;
+let computerScore=0;
+
+// console.log(`score initialise human are ${humanScore} and computer  are ${computerScore}`)
+
+
 //to check whether from array we are fetched all value from index 0 
 // for(choice of choices){
 //     console.log(choice);  //done display all value rock scissor paper;
@@ -35,16 +42,19 @@ function getComputerChoice() {
 //So for input user take prompt argument to pass in parameter ie empty box like placeholder paramater
 function playground(userChoice, computerChoice) {
     //this is simple to call with string where below backstick is good to call
-    // console.log("User choice is ", userChoice);
+     console.log("User choice is ", userChoice);
     // console.log("computer box hold from machine random ", computerChoice);
 
 
+    // ##for score let change and update from direct console print to return that will take take by or call by gamecontroller() to score update
 
 
     //now with conditon game with rule draw or win or loose
 
     if (computerChoice === userChoice) {
-        console.log(`Both User and computer are draw`)
+        // console.log(`Both User and computer are draw`)
+        //#for score instead direct print write return
+        return "draw";
     }
     //here i will check all possiblity of winning of user choice
     else if (
@@ -52,16 +62,18 @@ function playground(userChoice, computerChoice) {
         (userChoice === "scissor" && computerChoice === "paper") ||
         (userChoice === "paper" && computerChoice === "rock")
     ) {
-        console.log(`User WIN!`)
+        // console.log(`User WIN!`)
+        return "Human WIN"
     } else {
-        console.log(`Computer WIN! : User better luck next time!`)
+        // console.log(`Computer WIN! : User better luck next time!`)
+        return "Computer WIN"
     }
 
 
 
     //with backstick it good for multiple line to print 
-    console.log(`User choice is : ${userChoice}`);
-    console.log(`computer box hold from machine random : ${computerChoice}`);
+    // console.log(`User choice is : ${userChoice}`);
+    // console.log(`computer box hold from machine random : ${computerChoice}`);
 }
 
 // let userInput = prompt("Enter Rock,Paper,Scissor").toLowerCase();
@@ -105,13 +117,33 @@ function gameController() {
         userInput=rawPrompt.toLowerCase().trim();
     }
 
+   
+
     // This code only runs if they escaped the trap loop with a valid choice!
     let computerInput = getComputerChoice();
-    playground(userInput, computerInput);
+//# take function where return win loss draw and with winner store in it 
+   let winner  =playground(userInput, computerInput);
+   //#conditon if else with comparison winner and return may be human wIN, computer WIN or draw
+    if(winner === "Human WIN") { //whatever return in above function playground with parameter two pass argument with return value as compare with return Human wIn
+        humanScore++;             //score will increase which initialise above 
+        console.log(`Human user WON this round!`)
+    }  
+    else if(winner === "Computer WIN"){
+        computerScore++;
+        console.log(`Computer user  WON this round!`);
+    }else{
+        console.log(`Draw this round! Score remain same`)
+    }
+
+    console.log(`-----SCOREBOARD--------`);
+    console.log(`Human score is ${humanScore} | Computer score is ${computerScore} `);
+    console.log(`-------------`);
+   
 }
 
 // Kickstart the game loop controller safely
 gameController();
+gameController();  //again call to start game but this is hardcore so call from for loop 5 time
 
 
 
