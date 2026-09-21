@@ -8,8 +8,8 @@ document.getElementById("status").innerHTML = msg;
 const choices = ["rock", "scissor", "paper"];
 
 //initialise global var score for human and computer user
-let humanScore=0;
-let computerScore=0;
+let humanScore = 0;
+let computerScore = 0;
 
 // console.log(`score initialise human are ${humanScore} and computer  are ${computerScore}`)
 
@@ -42,7 +42,7 @@ function getComputerChoice() {
 //So for input user take prompt argument to pass in parameter ie empty box like placeholder paramater
 function playground(userChoice, computerChoice) {
     //this is simple to call with string where below backstick is good to call
-     console.log("User choice is ", userChoice);
+    console.log("User choice is ", userChoice);
     // console.log("computer box hold from machine random ", computerChoice);
 
 
@@ -104,48 +104,136 @@ function playground(userChoice, computerChoice) {
 //again review bug got as stuck infinte loop even cancel button clicked on prompt 
 //so i need to create new function as gameController 
 
-function gameController() {
+
+//### function gameController committed because we need fresh function playGround and tournament for update score and loop 
+// function gameController() {
+//     let userInput = "";
+
+//     while (!choices.includes(userInput)) {
+//         let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
+
+//         if (rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit") {
+//             console.log("👋 Game ended gracefully by the user. Goodbye!");
+//             return; // 🚀 This stops the entire game loop execution instantly!
+//         }
+//         userInput=rawPrompt.toLowerCase().trim();
+//     }
+
+
+
+//     // This code only runs if they escaped the trap loop with a valid choice!
+//     let computerInput = getComputerChoice();
+// //# take function where return win loss draw and with winner store in it 
+//    let winner  =playground(userInput, computerInput);
+//    //#conditon if else with comparison winner and return may be human wIN, computer WIN or draw
+//     if(winner === "Human WIN") { //whatever return in above function playground with parameter two pass argument with return value as compare with return Human wIn
+//         humanScore++;             //score will increase which initialise above 
+//         console.log(`Human user WON this round!`)
+//     }  
+//     else if(winner === "Computer WIN"){
+//         computerScore++;
+//         console.log(`Computer user  WON this round!`);
+//     }else{
+//         console.log(`Draw this round! Score remain same`)
+//     }
+
+//     console.log(`-----SCOREBOARD--------`);
+//     console.log(`Human score is ${humanScore} | Computer score is ${computerScore} `);
+//     console.log(`-------------`);
+
+// }
+
+// // Kickstart the game loop controller safely
+// gameController();
+// gameController();  //again call to start game but this is hardcore so call from for loop 5 time
+
+
+
+// ## startin issue raise for game update score and 5 time game play and last winner display with score based
+
+
+// ==========================================
+// 4. WORKFLOW WORKER: INDIVIDUAL ROUNDS (Write it here!)
+// ==========================================
+
+function playRound() {
     let userInput = "";
-
+    console.log(userInput); //to test bug  empty string
     while (!choices.includes(userInput)) {
-        let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper:");
 
+        let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper (or type 'exit' to quit):");
         if (rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit") {
-            console.log("👋 Game ended gracefully by the user. Goodbye!");
-            return; // 🚀 This stops the entire game loop execution instantly!
+            console.log("Good Bye! User abondoned by the user.")
+            return "exit";
         }
-        userInput=rawPrompt.toLowerCase().trim();
+
+        //here created duplicate let userInput rather update userInput 
+        //by ESLint installed with package and edited full eslint.config.mjs file then it show error 
+        // userInput already declared above scope on line 160  let userInput
+        userInput = rawPrompt.toLowerCase().trim();
+        console.log(`Audit for userInput why not taking becaue let define duplicate and not shown error`, userInput);
     }
 
-   
 
-    // This code only runs if they escaped the trap loop with a valid choice!
     let computerInput = getComputerChoice();
-//# take function where return win loss draw and with winner store in it 
-   let winner  =playground(userInput, computerInput);
-   //#conditon if else with comparison winner and return may be human wIN, computer WIN or draw
-    if(winner === "Human WIN") { //whatever return in above function playground with parameter two pass argument with return value as compare with return Human wIn
-        humanScore++;             //score will increase which initialise above 
-        console.log(`Human user WON this round!`)
-    }  
-    else if(winner === "Computer WIN"){
-        computerScore++;
-        console.log(`Computer user  WON this round!`);
-    }else{
-        console.log(`Draw this round! Score remain same`)
-    }
+    let result = playground(userInput, computerInput);
 
-    console.log(`-----SCOREBOARD--------`);
-    console.log(`Human score is ${humanScore} | Computer score is ${computerScore} `);
-    console.log(`-------------`);
-   
+    if (result === "Human WIN") {
+        humanScore++;
+        console.log(`Round Winner : User! ( ${userInput} beats ${computerInput} )`);
+
+    }
+    else if (result === "Computer WIN") {
+        computerScore++;
+        console.log(`Round Winner : Computer! (${computerInput} beats ${userInput})`);
+    }
+    else {
+        console.log(`Round Result : it's draw! Both Choose ${userInput}`);
+    }
+    console.log(`Current Score -> You : ${humanScore} | Computer : ${computerScore} \n --------`)
 }
 
-// Kickstart the game loop controller safely
-gameController();
-gameController();  //again call to start game but this is hardcore so call from for loop 5 time
+playRound(); //not called this function and run where no output visible
+
+// ==========================================
+// TOURNAMENT CONTROLLER: Runs the 5-round loop
+// ==========================================
+
+function gameTournament() {
+    console.log(`Tournament started with 5 round in row`);
+
+    for (let round = 1; round <= 5; round++) {
+        console.log(`===Round ${round} of 5 =====`);
+        let status = playRound();
+
+        if (status === "exit") {
+            document.getElementById("status").innerHTML = "Tournament Aborted";
+            return;
+        }
+
+    }
+
+    // 🏆 THE GRAND FINALE ANNOUNCEMENT (Triggers ONLY after the loop finishes all 5 rounds safely)
+    console.log("\n🏁 TOURNAMENT CONCLUDED! FINAL SCORE REPORT: 🏁");
+    console.log(`Final Standings -> You: ${humanScore} | Computer: ${computerScore}`);
+
+    if (humanScore > computerScore) {
+        console.log("🏆 CONGRATULATIONS! You are the Grand Champion of the Match! 🏆");
+        document.getElementById("status").innerHTML = `Tournament Over: You Win (${humanScore}-${computerScore})!`;
+    } else if (computerScore > humanScore) {
+        console.log("🤖 GAME OVER! The Computer is the Grand Champion of the Match! 🤖");
+        document.getElementById("status").innerHTML = `Tournament Over: Computer Wins (${computerScore}-${humanScore})!`;
+    } else {
+        console.log("🤝 MATCH TIED! It's a dead-heat Draw tournament! 🤝");
+        document.getElementById("status").innerHTML = `Tournament Over: It's a Draw (${humanScore}-${computerScore})!`;
+    }
+}
 
 
+// ==========================================
+// THE KICKSTART TRIGGERS (The main ignition keys)
+// ==========================================
 
-
-
+// ❌ CRITICAL: Delete any old separate "playRound();" call you had at the bottom of the file!
+// Keep ONLY this master tournament caller to execute the script loop safely:
+gameTournament();
