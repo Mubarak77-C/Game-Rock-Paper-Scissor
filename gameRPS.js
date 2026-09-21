@@ -149,5 +149,48 @@ function playground(userChoice, computerChoice) {
 
 
 
+// ## startin issue raise for game update score and 5 time game play and last winner display with score based
 
 
+// ==========================================
+// 4. WORKFLOW WORKER: INDIVIDUAL ROUNDS (Write it here!)
+// ==========================================
+
+function playRound(){
+    let userInput = "";
+    console.log(userInput); //to test bug  empty string
+    while(!choices.includes(userInput)){
+         
+        let rawPrompt = prompt("Choose your weapon! Enter rock, scissor, or paper (or type 'exit' to quit):");
+        if(rawPrompt === null || rawPrompt.toLowerCase().trim() === "exit"){
+            console.log("Good Bye! User abondoned by the user.")
+            return "exit";
+        }
+
+        //here created duplicate let userInput rather update userInput 
+        //by ESLint installed with package and edited full eslint.config.mjs file then it show error 
+      // userInput already declared above scope on line 160  let userInput
+        userInput = rawPrompt.toLowerCase().trim(); 
+         console.log(`Audit for userInput why not taking becaue let define duplicate and not shown error`, userInput);
+    }
+   
+
+    let computerInput = getComputerChoice();    
+    let result = playground(userInput, computerInput);
+
+    if(result === "Human WIN"){
+        humanScore++;
+        console.log(`Round Winner : User! ( ${userInput} beats ${computerInput} )`);
+
+    }
+    else if(result === "Computer WIN"){
+        computerScore++;
+        console.log(`Round Winner : Computer! (${computerInput} beats ${userInput})`);
+    }
+    else{
+        console.log(`Round Result : it's draw! Both Choose ${userInput}`);
+    }
+    console.log(`Current Score -> You : ${humanScore} | Computer : ${computerScore} \n --------`)
+}
+
+playRound(); //not called this function and run where no output visible
